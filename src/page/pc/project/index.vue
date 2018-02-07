@@ -14,7 +14,8 @@
                                 <span></span>
                             </div>
                             <div class="right-box">
-                                <div class="task-title f14">{{task.title}}</div>
+                                <div class="task-title f14">{{task.title}}{{++j}}</div>
+                                <span class="label">标签</span>
                             </div>
                         </div>
                     </div>
@@ -29,94 +30,19 @@
         name: 'index',
         data () {
             return {
-                groupItems: [
-                    {
-                        groupName: '需求池',
-                        taskNumber: 3,
-                        taskList: [
-                            {
-                                title: '俏猫小程序需求计划'
-                            }
-                        ]
-                    },
-                    {
-                        groupName: '产品审核',
-                        taskNumber: 3,
-                        taskList: [
-                            {
-                                title: '俏猫小程序需求计划'
-                            }
-                        ]
-                    },
-                    {
-                        groupName: 'UI设计',
-                        taskNumber: 3,
-                        taskList: [
-                            {
-                                title: '俏猫-搜索页设计'
-                            },
-                            {
-                                title: '投诉与反馈（修改'
-                            },
-                        ]
-                    },
-                    {
-                        groupName: '前端开发',
-                        taskNumber: 3,
-                        taskList: [
-                            {
-                                title: '搜索功能及相关页面'
-                            },
-                            {
-                                title: '重构订单页面'
-                            },
-                            {
-                                title: '春节一起约活动页面开发'
-                            },
-                        ]
-                    },
-                    {
-                        groupName: '后端开发',
-                        taskNumber: 3,
-                        taskList: [
-                            {
-                                title: '登陆API重构'
-                            },
-                            {
-                                title: '春节一起约活动API'
-                            },
-                            {
-                                title: '麦兜专题，本周五，周六，修改关于美业师的接口和表的相关修改'
-                            },
-                        ]
-                    },
-                    {
-                        groupName: '测试阶段',
-                        taskNumber: 3,
-                        taskList: [
-                            {
-                                title: '购物流程'
-                            }
-                        ]
-                    },
-                    {
-                        groupName: '运维人生',
-                        taskNumber: 3,
-                        taskList: []
-                    },
-                    {
-                        groupName: '发布验收',
-                        taskNumber: 3,
-                        taskList: [
-                            {
-                                title: '美业师web版'
-                            }
-                        ]
-                    }
-                ]
+                groupItems: []
             }
         },
-        methods: {},
+        created () {
+            this.funcTask();
+        },
+        methods: {
+            funcTask () {
+                this.axios.get('http://192.168.50.18:3030/task').then((response) => {
+                    this.groupItems = response.data;
+                })
+            }
+        },
         components: {}
     }
 </script>
@@ -188,7 +114,6 @@
                 white-space: nowrap;
                 overflow-y: auto;
                 height: 100%;
-
             }
             .task {
                 @include fj();

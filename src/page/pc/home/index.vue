@@ -2,19 +2,19 @@
     <div id="home">
         <h2 class="in-project">星标项目</h2>
         <div class="project-items">
-            <router-link to="/project" class="project" v-for="(item,index) in ['俏猫','美业师']" :key="index">
+            <router-link to="/project" class="project" v-for="(item,index) in star" :key="index">
                 <div class="project-info">
-                    <p class="project-title">{{item}}</p>
-                    <p class="project-desc">俏猫管你漂亮！</p>
+                    <p class="project-title">{{item.name}}</p>
+                    <p class="project-desc">{{item.desc}}</p>
                 </div>
             </router-link>
         </div>
         <h2 class="in-project">我参与的项目</h2>
         <div class="project-items">
-            <router-link to="/project" class="project" v-for="(item,index) in ['俏猫','柚子舍','美业师']" :key="index">
+            <router-link to="/project" class="project" v-for="(item,index) in participate" :key="index">
                 <div class="project-info">
-                    <p class="project-title">{{item}}</p>
-                    <p class="project-desc">俏猫管你漂亮！</p>
+                    <p class="project-title">{{item.name}}</p>
+                    <p class="project-desc">{{item.desc}}</p>
                 </div>
             </router-link>
         </div>
@@ -26,10 +26,17 @@
         name: 'index',
         data () {
             return {
-                imgIndex: 1,
+                star: [],
+                participate: []
             }
         },
-        methods: {},
+        created () {
+            this.axios.get('http://192.168.50.18:3030').then((response) => {
+                console.log(response.data);
+                this.star = response.data.star;
+                this.participate = response.data.participate;
+            })
+        },
         components: {}
     }
 </script>
